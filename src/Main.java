@@ -5,6 +5,7 @@ import models.Subtask;
 import models.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,9 +31,9 @@ public class Main {
         manager.addSubtask(thirdSubtask);
 
         //Распечатайте списки эпиков, задач и подзадач через System.out.println(..).
-        ArrayList<Task> tasks = manager.getAllTasks();
-        ArrayList<Epic> epics = manager.getAllEpics();
-        ArrayList<Subtask> subtasks = manager.getAllSubtasks();
+        List<Task> tasks = manager.getAllTasks();
+        List<Epic> epics = manager.getAllEpics();
+        List<Subtask> subtasks = manager.getAllSubtasks();
 
         System.out.println("Таски:");
         System.out.println(tasks);
@@ -79,7 +80,13 @@ public class Main {
         System.out.println("Подзадачи");
         System.out.println(manager.getAllSubtasks());
 
+        System.out.println("-".repeat(20));
+
         manager.deleteAllTasks();
+        manager.deleteAllSubtasks();
         System.out.println(manager.getAllTasks());
+        System.out.println(manager.getAllEpics());
+
+
     }
 }
