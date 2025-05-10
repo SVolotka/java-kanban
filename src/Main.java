@@ -1,3 +1,6 @@
+import manager.InMemoryHistoryManager;
+import manager.InMemoryTaskManager;
+import manager.Managers;
 import manager.TaskManager;
 import models.Epic;
 import models.Status;
@@ -9,7 +12,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new TaskManager();
+        TaskManager manager = Managers.getDefault();
 
         // Testing
         //Создайте две задачи, а также эпик с двумя подзадачами и эпик с одной подзадачей.
@@ -17,6 +20,7 @@ public class Main {
         Task secondTask = new Task("Сдать ФЗ5", "Финальное задание 5 спринта", Status.NEW);
         manager.addTask(firstTask);
         manager.addTask(secondTask);
+
 
         Epic firstEpic = new Epic("Купить продукты", "Молоко и Хлеб", Status.NEW);
         Epic secondEpic = new Epic("Купить книгу", "Желательно научную фантастику", Status.NEW);
