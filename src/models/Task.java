@@ -10,12 +10,11 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = status;
-
     }
 
-public String getName() {
-        return  name;
-}
+    public String getName() {
+        return name;
+    }
 
     public String getDescription() {
         return description;
