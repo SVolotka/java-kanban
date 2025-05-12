@@ -16,15 +16,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-// не сделал 2 теста:
-//1) проверьте, что объект Epic нельзя добавить в самого себя в виде подзадачи;
-// Добавить можно только Subtask
-// можно поломать этот список добавив рандомный ArrayList через someEpic.setSubtasks(ArrayList<Integer> subtasks),
-// но чтобы закрыть такую возможность мне надо перенести setSubtasksByEpic в InMemoryTaskManager и тогда можно будет проверить этот список.
-
-//2) проверьте, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;
-// Задать id у задач нельзя. Можно при добавлении Subtaskа указать несуществующий EpicID, но на это я проверку сделал и тест написал.
-
 class InMemoryTaskManagerTest {
     private TaskManager taskManager;
     String nameTask = "Test addNewTask";
@@ -41,7 +32,6 @@ class InMemoryTaskManagerTest {
     public void init() {
         taskManager = Managers.getDefault();
     }
-
 
     @Test
     void shouldAddTaskManager() {
@@ -250,7 +240,6 @@ class InMemoryTaskManagerTest {
         Subtask subtaskByID = taskManager.getSubtaskByID(subtaskID);
 
         assertNotNull(subtaskByID, "Сабтаск не возвращается");
-
     }
 
     @Test
