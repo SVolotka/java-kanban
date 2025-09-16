@@ -3,17 +3,17 @@ package models;
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    ArrayList<Integer> subtasks = new ArrayList<>();
+    ArrayList<Integer> subtaskIDs = new ArrayList<>();
 
     public Epic(String name, String description, Status status) {
         super(name, description, status);
     }
 
-    public ArrayList<Integer> getSubtasks() {
-        return subtasks;
+    public ArrayList<Integer> getSubtaskIDs() {
+        return subtaskIDs;
     }
 
-    public void setSubtasks(ArrayList<Integer> subtasks) {
-        this.subtasks = subtasks;
+    public void setSubtaskIDs(ArrayList<Integer> subtaskIDs) {
+        this.subtaskIDs = subtaskIDs;
     }
 }
