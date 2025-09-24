@@ -6,9 +6,11 @@ import models.Subtask;
 import models.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -322,6 +324,26 @@ class InMemoryTaskManagerTest {
         Subtask deletedSubtask = taskManager.getSubtaskByID(subtaskID);
 
         assertNull(deletedSubtask, "Сабтаск не удалился.");
+    }
+
+    @Test
+    void shouldRemoveSubtaskFromEpicWhenSubtaskIsDeleted() {
+        Epic epic = new Epic(nameEpic, descriptionEpic, status);
+        final int epicID = taskManager.addEpic(epic);
+        Subtask firstSubtask = new Subtask(nameSubtask, descriptionSubtask, status, epicID);
+        final int firstSubtaskID = taskManager.addSubtask(firstSubtask);
+        Subtask secondSubtask = new Subtask(nameSubtask + 2, descriptionSubtask + 2, status, epicID);
+        final int secondSubtaskID = taskManager.addSubtask(secondSubtask);
+
+        taskManager.deleteSubtaskByID(firstSubtaskID);
+        ArrayList<Integer> subtasksInEpic = epic.getSubtaskIDs();
+        boolean isFirstSubtaskInList = subtasksInEpic.contains(firstSubtaskID);
+        boolean isSecondSubtaskInList = subtasksInEpic.contains(secondSubtaskID);
+        Subtask deletedSubtask = taskManager.getSubtaskByID(firstSubtaskID);
+
+        assertNull(deletedSubtask, "Сабтаск не удалился.");
+        assertTrue(isSecondSubtaskInList, "Сабтаска нет в списке у Эпика");
+        assertFalse(isFirstSubtaskInList, "Сабтаск не удалился из списка Эпика");
     }
 
     @Test
