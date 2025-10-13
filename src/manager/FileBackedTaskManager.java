@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
-    private File file;
+    final private File file;
 
     public FileBackedTaskManager(File file, HistoryManager historyManager) {
         super(historyManager);
