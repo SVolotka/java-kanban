@@ -18,14 +18,14 @@ import java.util.List;
 public class FileBackedTaskManager extends InMemoryTaskManager {
     final private File file;
 
-    public FileBackedTaskManager(File file, HistoryManager historyManager) {
+    public FileBackedTaskManager(HistoryManager historyManager, File file) {
         super(historyManager);
         this.file = file;
     }
 
     public static void main(String[] args) throws IOException {
         File testFile = File.createTempFile("test_tasks", ".csv");
-        FileBackedTaskManager manager = new FileBackedTaskManager(testFile, new InMemoryHistoryManager());
+        FileBackedTaskManager manager = new FileBackedTaskManager(new InMemoryHistoryManager(), testFile);
 
         // Заведите несколько разных задач, эпиков и подзадач.
         Task firstTask = new Task("Сдать ФЗ4", "Финальное задание 4 спринта", Status.NEW);
@@ -74,7 +74,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static FileBackedTaskManager loadFromFile(File file) {
         try {
-            FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file, new InMemoryHistoryManager());
+            FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(new InMemoryHistoryManager(), file);
             int maxID = 0;
 
             if (!file.exists() || file.length() == 0) {

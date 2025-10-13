@@ -34,7 +34,7 @@ public class FileBackedTaskManagerTest {
     @BeforeEach
     void init() throws IOException {
         testFile = File.createTempFile("test_tasks", ".csv");
-        manager = new FileBackedTaskManager(testFile, new InMemoryHistoryManager());
+        manager = new FileBackedTaskManager(new InMemoryHistoryManager(), testFile);
     }
 
     @Test
