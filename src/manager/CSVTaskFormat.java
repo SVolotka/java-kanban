@@ -32,25 +32,23 @@ public final class CSVTaskFormat {
             default -> status;
         };
 
-        return switch (fields[1]) {
-            case "TASK" -> new Task(name, description, status);
-            case "EPIC" -> new Epic(name, description, status);
-            case "SUBTASK" -> {
+        TaskType taskType = determineTaskTypeFromString(fields[1]);
+        return switch (taskType) {
+            case TASK -> new Task(name, description, status);
+            case EPIC -> new Epic(name, description, status);
+            case SUBTASK -> {
                 int epicID = Integer.parseInt(fields[5]);
                 yield new Subtask(name, description, status, epicID);
             }
-            default -> null;
         };
     }
 
     public static TaskType determineTaskType(Task task) {
-        if (task instanceof Epic) {
-            return TaskType.EPIC;
-        } else if (task instanceof Subtask) {
-            return TaskType.SUBTASK;
-        } else {
-            return TaskType.TASK;
-        }
+        return task.getType();
+    }
+
+    public static TaskType determineTaskTypeFromString(String str) {
+        return TaskType.valueOf(str);
     }
 
     private static String createStringFromTask(Task task, TaskType taskType) {
