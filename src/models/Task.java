@@ -1,10 +1,15 @@
 package models;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Task {
     private String name;
     private String description;
     private Integer id;
     private Status status;
+    private LocalDateTime startTime;
+    private Duration duration;
 
     public Task(String name, String description, Status status) {
         this.name = name;
@@ -46,6 +51,29 @@ public class Task {
 
     public TaskType getType() {
         return TaskType.TASK;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (startTime == null || duration == null) {
+            return null;
+        }
+        return startTime.plus(duration);
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setStartTime(LocalDateTime newStartTime) {
+        startTime = newStartTime;
+    }
+
+    public void setDuration(Duration newDuration) {
+        duration = newDuration;
     }
 
     @Override
