@@ -151,8 +151,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public Integer addSubtask(Subtask subtask) {
-        int id = super.addSubtask(subtask);
-        save();
+        Integer id = super.addSubtask(subtask);
+        if (id != null) {
+            save();
+        }
         return id;
     }
 
@@ -224,6 +226,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void addSubtaskWithoutSave(Subtask subtask) {
         super.addSubtask(subtask);
     }
+
 
     private int setIDFromString(String csvLine) {
         String[] fields = csvLine.split(",");
