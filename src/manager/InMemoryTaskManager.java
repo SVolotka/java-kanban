@@ -36,10 +36,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int addTask(Task task) {
+        addToPrioritizedTasksList(task);
         int newID = setIdentifier();
         task.setID(newID);
         tasks.put(task.getID(), task);
-        addToPrioritizedTasksList(task);
         return newID;
     }
 
@@ -54,10 +54,11 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Integer addSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicID())) {
+            addToPrioritizedTasksList(subtask);
             int newID = setIdentifier();
             subtask.setID(newID);
             subtasks.put(subtask.getID(), subtask);
-            addToPrioritizedTasksList(subtask);
+        //    addToPrioritizedTasksList(subtask);
 
             Epic epic = epics.get(subtask.getEpicID());
             if (epic.getSubtaskIDs() != null) {
@@ -135,17 +136,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskByID(int id) {
-        if (tasks.containsKey(id)) {
-            Task task = tasks.get(id);
-            Task taskForHistory = new Task(task.getName(), task.getDescription(), task.getStatus());
-            taskForHistory.setID(task.getID());
-            historyManager.add(taskForHistory);
+            if (tasks.containsKey(id)) {
+                Task task = tasks.get(id);
+                Task taskForHistory = new Task(task.getName(), task.getDescription(), task.getStatus());
+                taskForHistory.setID(task.getID());
+                historyManager.add(taskForHistory);
 
-            return tasks.get(id);
-        } else {
-            return null;
-        }
-
+                return tasks.get(id);
+            } else {
+                return null;
+            }
     }
 
     @Override
@@ -353,6 +353,7 @@ public class InMemoryTaskManager implements TaskManager {
         return start1.isBefore(end2) && start2.isBefore(end1);
     }
 
+    @Override
     public List<Task> getPrioritizedTasks() {
         return new ArrayList<>(prioritizedTasks);
     }

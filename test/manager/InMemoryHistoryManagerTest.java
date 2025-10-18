@@ -8,10 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-//Задание: Это позволит избавиться от дублирующегося кода в классах FileBackedTaskManagerTest,
-// InMemoryHistoryManagerTest и InMemoryTaskManagerTest.
-// В этих классах останутся только тесты, относящиеся к специфическим методам конкретной реализации менеджера задач.
-// не понимаю как это реализовать для HistoryManager. Он ведь не имплементирует интерфейс TaskManager
 class InMemoryHistoryManagerTest {
     InMemoryHistoryManager historyManager;
     Task firstTask;
