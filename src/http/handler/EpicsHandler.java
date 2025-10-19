@@ -7,6 +7,7 @@ import exceptions.TaskValidationException;
 import http.HttpTaskServer;
 import manager.TaskManager;
 import models.Epic;
+import models.HttpMethod;
 import models.Subtask;
 
 import java.io.IOException;
@@ -28,16 +29,17 @@ public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
+        HttpMethod httpMethod = getHttpMethod(method);
 
         try {
-            switch (method) {
-                case "GET":
+            switch (httpMethod) {
+                case GET:
                     handleGet(exchange);
                     break;
-                case "POST":
+                case POST:
                     handlePost(exchange);
                     break;
-                case "DELETE":
+                case DELETE:
                     handleDelete(exchange);
                     break;
                 default:

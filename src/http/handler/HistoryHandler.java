@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import http.HttpTaskServer;
 import manager.TaskManager;
+import models.HttpMethod;
 import models.Task;
 
 import java.io.IOException;
@@ -22,10 +23,11 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
+        HttpMethod httpMethod = getHttpMethod(method);
 
         try {
-            switch (method) {
-                case "GET": {
+            switch (httpMethod) {
+                case GET: {
                     handleGet(exchange);
                     break;
                 }

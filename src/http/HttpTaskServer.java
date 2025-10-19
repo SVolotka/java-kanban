@@ -19,10 +19,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class HttpTaskServer {
-    public static final int PORT = 8080;
+    private static final int PORT = 8080;
 
     private final HttpServer server;
-    InetSocketAddress address = new InetSocketAddress("localhost", PORT);
+    private final InetSocketAddress address = new InetSocketAddress("localhost", PORT);
     private final TaskManager manager; // = Managers.getDefault();
     private static Gson gson;
 

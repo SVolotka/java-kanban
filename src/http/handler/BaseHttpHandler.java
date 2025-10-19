@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import exceptions.ErrorResponse;
 import http.HttpTaskServer;
+import models.HttpMethod;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -58,6 +59,14 @@ public class BaseHttpHandler {
 
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(responseBytes);
+        }
+    }
+
+    protected HttpMethod getHttpMethod(String method) {
+        try {
+            return HttpMethod.valueOf(method);
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 
