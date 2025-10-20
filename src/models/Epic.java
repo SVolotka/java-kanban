@@ -28,8 +28,7 @@ public class Epic extends Task {
 
     @Override
     public LocalDateTime getEndTime() {
-
-        return null;
+        return endTime;
     }
 
     public void updateEpicTimesFields(List<Subtask> subtasks) {
